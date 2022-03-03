@@ -1,6 +1,7 @@
-import { HeaderArea } from './styles'
-import moonIconLight from '../../../public/images/moon-outline.svg'
-import moonIconDark from '../../../public/images/moon-outline-dark.svg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMoon } from '@fortawesome/free-solid-svg-icons'
+
+import { Container } from './styles'
 
 type Props = {
     onToggleTheme: () => void;
@@ -9,14 +10,14 @@ type Props = {
 
 export const Header = ({ onToggleTheme, theme }: Props) => {
     return (
-        <HeaderArea>
+        <Container>
             <div className="container">
                 <h1 className="title">Where in the world?</h1>
                 <button className="toggle-theme-btn" onClick={() => onToggleTheme()}>
-                    <img src={theme === 'light' ? moonIconLight : moonIconDark} alt="Moon Icon" />
+                    <FontAwesomeIcon icon={faMoon} />
                     Dark Mode
                 </button>
             </div>
-        </HeaderArea>
+        </Container>
     )
 }

@@ -1,15 +1,15 @@
 import styled from 'styled-components'
 
-export const HeaderArea = styled.header`
-    background-color: ${props => props.theme.element};
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
+export const Container = styled.header`
+    background-color: ${props => props.theme.colors.element};
+    box-shadow: ${props => props.theme.elementShadow};
 
     .container {
         display: flex;
         justify-content: space-between;
         align-items: center;
         height: 8rem;
-        color: ${props => props.theme.fontColorPrimary};
+        color: ${props => props.theme.colors.textPrimary};
 
         .title {
             font-size: 2.4rem;
@@ -19,15 +19,12 @@ export const HeaderArea = styled.header`
         .toggle-theme-btn {
             display: flex;
             align-items: center;
-            margin-left: .8rem;
             font-size: 1.6rem;
             font-weight: 600;
-            color: inherit;
+            color: ${props => props.theme.colors.textPrimary};
 
-            img {
-                width: 1.8rem;
+            svg {
                 margin-right: .8rem;
-                transform: translateY(-1px);
             }
         }
     }

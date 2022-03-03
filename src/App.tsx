@@ -1,8 +1,11 @@
-import { Header } from './components/Header'
-import { GlobalStyles } from './GlobalStyles'
 import { ThemeProvider } from 'styled-components'
-import { lightTheme, darkTheme } from './theme'
 import { useState } from 'react'
+
+import { light, dark } from './styles/themes'
+
+import { GlobalStyles } from './styles/global'
+import { Header } from './components/Header'
+import { Routes } from './routes'
 
 const App = () => {
   const [theme, setTheme] = useState('light')
@@ -12,9 +15,10 @@ const App = () => {
   }
 
   return (
-    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+    <ThemeProvider theme={theme === 'light' ? light : dark}>
       <GlobalStyles />
       <Header theme={theme} onToggleTheme={handleToggleTheme} />
+      <Routes />
     </ThemeProvider>
   )
 }

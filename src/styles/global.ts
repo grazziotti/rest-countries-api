@@ -2,7 +2,9 @@ import { createGlobalStyle } from "styled-components";
 
 type Props = {
     theme: {
-        background: string
+        colors: {
+            background: string
+        }
     }
 }
 
@@ -16,6 +18,10 @@ export const GlobalStyles = createGlobalStyle<Props>`
         font-family: 'Nunito Sans', sans-serif;
     }
 
+    :root {
+        --sla: blue
+    }
+
     html {
         font-size: 62.5%;
     }
@@ -23,7 +29,7 @@ export const GlobalStyles = createGlobalStyle<Props>`
     body {
         min-height: 100vh;
         width: 100%;
-        background-color: ${props => props.theme.background};
+        background-color: ${props => props.theme.colors.background};
     }
 
     img {
@@ -47,10 +53,12 @@ export const GlobalStyles = createGlobalStyle<Props>`
     input {
         border: 0;
         outline: 0;
+        background-color: transparent;
     }
 
     .container {
         max-width: 136.6rem;
+        width: 100%;
         margin: auto;
     }
 `
