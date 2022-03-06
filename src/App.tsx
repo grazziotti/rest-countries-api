@@ -1,5 +1,5 @@
 import { ThemeProvider } from 'styled-components'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { light, dark } from './styles/themes'
 

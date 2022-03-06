@@ -57,7 +57,7 @@ export const GlobalStyles = createGlobalStyle<Props>`
     }
 
     .container {
-        max-width: 136.6rem;
+        max-width: 130rem;
         width: 100%;
         margin: auto;
     }

@@ -5,7 +5,7 @@ import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { Container } from './styles'
 
 export const Dropdown = () => {
-    const regions = ['Africa', 'America', 'Asia', 'Europe', 'Ocenia']
+    const regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania']
     
     const [isOpen, setIsOpen] = useState(false)
     
