@@ -15,23 +15,23 @@ export const countriesInitialState: CountriesType = {
     searchText: '',
 }
 
-export const filteredItems = (state: CountriesType) => {
+export const filteredCountries = (state: CountriesType) => {
     const { data, region, searchText } = state;
-    if (region.length === 0) {
-        return data.filter((item) => item.name.toLowerCase().startsWith(searchText.toLowerCase()));
-    } else {
-        const filteredByRegion = data.filter((item) => item.region === region);
-        return filteredByRegion.filter((item) => item.name.toLowerCase().startsWith(searchText.toLowerCase()));
-    }
+
+    const filteredData: CountryType[] = region === '' || region === 'all'
+        ? data
+        : data.filter((country) => country.region.toLowerCase() === region)
+
+    return filteredData.filter(country => country.name.toLowerCase().startsWith(searchText))
 }
 
 export const countriesReducer = (state: CountriesType, action: ReducerActionType) => {
     switch(action.type) {
         case 'SET_REGION':
-            return {...state, region: action.payload.region}
+            return {...state, region: action.payload.region.toLowerCase().trim()}
         break
         case 'SEARCH_TEXT':
-            return {...state, searchText: action.payload.text}
+            return {...state, searchText: action.payload.searchText.toLowerCase().trim()}
         break
     }
 

@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { Context } from '../../../contexts/Context'
+import { filteredCountries } from '../../../redurcers/countriesReducer'
 import { CountryCard } from '../CountryCard'
 
 import { Container } from './styles'
@@ -7,9 +8,11 @@ import { Container } from './styles'
 export const CountriesArea = () => {
     const { state } = useContext(Context)
 
+    const list = filteredCountries(state.countries)
+
     return (
         <Container>
-            {state.countries.data.map( (country, index) => {
+            {list.map( (country, index) => {
                 return <CountryCard 
                     key={index}
                     flag={country.flag}

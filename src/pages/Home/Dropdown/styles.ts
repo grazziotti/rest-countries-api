@@ -10,6 +10,7 @@ export const Container = styled.div<Props>`
     width: 100%;
     font-size: 1.4rem;
     font-weight: 600;
+    z-index: 1;
     
     button {
         display: flex;
