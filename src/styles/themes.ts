@@ -1,4 +1,5 @@
 export const light = {
+    title: 'light',
     elementShadow: '0 5px 10px -5px #ccc, 0 -1px 10px -5px #eee;',
 
     colors: {
@@ -10,6 +11,7 @@ export const light = {
 }
 
 export const dark = {
+    title: 'dark',
     elementShadow: '0 5px 10px -5px #222, 0 -1px 10px -5px #222',
 
     colors: {

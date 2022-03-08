@@ -7,20 +7,23 @@ type Props = {
     population: number;
     region: string;
     capital: string;
+    alphaCode: string;
 }
 
-export const CountryCard = ({ flag, name, population, region, capital }: Props) => {
+export const CountryCard = ({ flag, name, population, region, capital, alphaCode }: Props) => {
     return (
         <Container>
-            <Link to="/">
+            <Link to={`/detail/${alphaCode}`}>
                 <div className="country-flag">
-                    <img src={flag} alt="" />
+                    <img src={flag} alt={`${name} flag`} />
                 </div>
                 <div className="country-info">
                     <h4>{name}</h4>
-                    <p>Population: <span>{population}</span></p>
-                    <p>Region: <span>{region}</span></p>
-                    <p>Capital: <span>{capital}</span></p>
+                    <ul>
+                        <li>Population: <span>{population}</span></li>
+                        <li>Region: <span>{region}</span></li>
+                        <li>Capital: <span>{capital}</span></li>
+                    </ul>
                 </div>
             </Link>
         </Container>

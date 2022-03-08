@@ -12,7 +12,7 @@ export type CountryType = {
     flag: string
     flags: {svg: string, png: string}[]
     independent: true
-    languages: object[]
+    languages: {iso639_1: string, iso639_2: string, name: string, nativeName: string}[]
     latlng: number[]
     name: string
     nativeName: string

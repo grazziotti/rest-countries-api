@@ -11,14 +11,14 @@ export type CountriesType = {
 
 export const countriesInitialState: CountriesType = {
     data: await api.getAll(),
-    region: '',
+    region: 'All',
     searchText: '',
 }
 
 export const filteredCountries = (state: CountriesType) => {
     const { data, region, searchText } = state;
 
-    const filteredData: CountryType[] = region === '' || region === 'all'
+    const filteredData: CountryType[] = region.toLowerCase() === 'all'
         ? data
         : data.filter((country) => country.region.toLowerCase() === region)
 

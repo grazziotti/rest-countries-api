@@ -7,8 +7,8 @@ import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { Container } from './styles'
 
 export const Dropdown = () => {
-    const { dispatch } = useContext(Context)
-    const [selectedRegion, setSelectedRegion] = useState('Filter by Region')
+    const { state, dispatch } = useContext(Context)
+    const [selectedRegion, setSelectedRegion] = useState(state.countries.region)
     const [isOpen, setIsOpen] = useState(false)
     const regions = ['All', 'Africa', 'Americas', 'Asia', 'Europe', 'Oceania']
 

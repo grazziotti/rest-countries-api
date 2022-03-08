@@ -18,10 +18,6 @@ export const Container = styled.div`
         .country-flag {
             height: 50%;
             overflow: hidden;
-            
-            img {
-                height: 100%;
-            }
         }
 
         .country-info {
@@ -37,13 +33,15 @@ export const Container = styled.div`
                 white-space: nowrap;
             }
             
-            p {
-                margin-bottom: .8rem;
-                font-size: 1.4rem;
-                font-weight: 600;
+            ul {
+                li {
+                    margin-bottom: .8rem;
+                    font-size: 1.4rem;
+                    font-weight: 600;
 
-                span {
-                    font-weight: 300;
+                    span {
+                        font-weight: 300;
+                    }
                 }
             }
 

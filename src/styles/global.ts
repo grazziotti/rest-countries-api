@@ -18,10 +18,6 @@ export const GlobalStyles = createGlobalStyle<Props>`
         font-family: 'Nunito Sans', sans-serif;
     }
 
-    :root {
-        --sla: blue
-    }
-
     html {
         font-size: 62.5%;
     }
@@ -34,6 +30,7 @@ export const GlobalStyles = createGlobalStyle<Props>`
 
     img {
         width: 100%;
+        height: 100%;
     }
 
     button {

@@ -10,18 +10,20 @@ export const CountriesArea = () => {
 
     const list = filteredCountries(state.countries)
 
+
     return (
         <Container>
-            {list.map( (country, index) => {
-                return <CountryCard 
+            {list.map( (country, index) => (
+                <CountryCard 
                     key={index}
                     flag={country.flag}
                     name={country.name}
                     population={country.population}
                     region={country.region}
                     capital={country.capital}
+                    alphaCode={country.alpha3Code}
                 />
-            })}
+            ))}
         </Container>
     )
 }

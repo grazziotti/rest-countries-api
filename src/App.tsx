@@ -8,11 +8,16 @@ import { Header } from './components/Header'
 import { Routes } from './routes'
 
 const App = () => {
-  const [theme, setTheme] = useState('light')
+  const initialTheme = localStorage.getItem('theme')
+  const [theme, setTheme] = useState(initialTheme ? initialTheme : 'light')
 
   const handleToggleTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light')
   }
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme)
+  }, [theme])
 
   return (
     <ThemeProvider theme={theme === 'light' ? light : dark}>
