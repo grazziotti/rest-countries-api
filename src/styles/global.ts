@@ -30,7 +30,6 @@ export const GlobalStyles = createGlobalStyle<Props>`
 
     img {
         width: 100%;
-        height: 100%;
     }
 
     button {
@@ -57,5 +56,6 @@ export const GlobalStyles = createGlobalStyle<Props>`
         max-width: 130rem;
         width: 100%;
         margin: auto;
+        padding: 0 3.2rem;
     }
 `

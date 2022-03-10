@@ -4,7 +4,7 @@ export const Container = styled.header`
     background-color: ${props => props.theme.colors.element};
     box-shadow: ${props => props.theme.elementShadow};
 
-    .container {
+    div {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -27,5 +27,16 @@ export const Container = styled.header`
                 margin-right: .8rem;
             }
         }
+        
+        @media (max-width: 570px) { 
+            .title {
+                font-size: 1.6rem;
+            }
+
+            .toggle-theme-btn {
+                font-size: 1.4rem;
+            }
+        }
     }
+
 `

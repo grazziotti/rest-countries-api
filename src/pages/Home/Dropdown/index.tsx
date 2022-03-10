@@ -10,7 +10,7 @@ export const Dropdown = () => {
     const { state, dispatch } = useContext(Context)
     const [selectedRegion, setSelectedRegion] = useState(state.countries.region)
     const [isOpen, setIsOpen] = useState(false)
-    const regions = ['All', 'Africa', 'Americas', 'Asia', 'Europe', 'Oceania']
+    const regions = ['All', 'Africa', 'Americas', 'Asia', 'Europe', 'Oceania', 'Polar']
 
     const handleClickRegion = (region: string) => {
         setSelectedRegion(region)
@@ -18,6 +18,7 @@ export const Dropdown = () => {
             type: 'SET_REGION',
             payload: { region }
         })
+        setIsOpen(false)
     }
     
     const toggleDropdown = () => {

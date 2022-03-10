@@ -28,8 +28,12 @@ export const Container = styled.div`
             color: ${props => props.theme.colors.textPrimary};
 
             &::placeholder {
-                color: ${props => props.theme.colors.textPrimary};
+                color: ${props => props.theme.colors.textSecondary};
             }
         }
+    }
+
+    @media (max-width: 570px) {
+        max-width: none;
     }
 `

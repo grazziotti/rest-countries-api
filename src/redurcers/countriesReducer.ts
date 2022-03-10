@@ -20,7 +20,7 @@ export const filteredCountries = (state: CountriesType) => {
 
     const filteredData: CountryType[] = region.toLowerCase() === 'all'
         ? data
-        : data.filter((country) => country.region.toLowerCase() === region)
+        : data.filter((country) => country.region.toLowerCase() === region.toLowerCase())
 
     return filteredData.filter(country => country.name.toLowerCase().startsWith(searchText))
 }
@@ -28,7 +28,7 @@ export const filteredCountries = (state: CountriesType) => {
 export const countriesReducer = (state: CountriesType, action: ReducerActionType) => {
     switch(action.type) {
         case 'SET_REGION':
-            return {...state, region: action.payload.region.toLowerCase().trim()}
+            return {...state, region: action.payload.region.trim()}
         break
         case 'SEARCH_TEXT':
             return {...state, searchText: action.payload.searchText.toLowerCase().trim()}

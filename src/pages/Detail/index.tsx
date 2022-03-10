@@ -6,11 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 import { Container } from './styles'
+import { PageContainer } from '../../components/mainComponents'
 
 export const Detail = () => {
     const { state } = useContext(Context)
-    const params = useParams()
-    
+    const params = useParams()    
     const country = state.countries.data.find( country => country.alpha3Code.toLowerCase() === params.country?.toLowerCase())
 
     let borderCountries = country?.borders === undefined
@@ -19,11 +19,13 @@ export const Detail = () => {
             .map( borderCountry => state.countries.data.find( country => country.alpha3Code === borderCountry))
             .map( borderCountry => { if (borderCountry !== undefined) return borderCountry.name })
 
+    window.scrollTo({ top: 0 })
+
     return (
         <Container>
             {country !== undefined &&
-                <div className="container">
-                    <Link className="back-btn" to="/">
+                <PageContainer>
+                    <Link className="back-btn" to="/" >
                         <FontAwesomeIcon icon={faArrowLeft} />
                         Back
                     </Link>
@@ -44,12 +46,12 @@ export const Detail = () => {
                                 <ul>
                                     <li>Top Level Domain: 
                                         <span>{' '}
-                                            {country.topLevelDomain.map( top => top)}
+                                            {country.topLevelDomain && country.topLevelDomain.map( top => top)}
                                         </span>
                                     </li>    
                                     <li>Currencies:{' '} 
                                         <span>
-                                            {country.currencies.map( currencie => currencie.name).join(', ')}
+                                            {country.currencies && country.currencies.map( currencie => currencie.name).join(', ')}
                                         </span>
                                     </li>    
                                     <li>Languages:{' '} 
@@ -63,15 +65,19 @@ export const Detail = () => {
                                 {country.borders !== undefined &&
                                     <>
                                     <p>Border Countries: </p>
-                                    {borderCountries.map( (borderCountry, index) => (
-                                        <Link key={index} to={`/detail/${country.borders[index]}`}>{borderCountry}</Link>
-                                    ))}
+                                        {borderCountries.map( (borderCountry, index) => (
+                                            <Link 
+                                                key={index} 
+                                                to={`/detail/${country.borders[index]}`}
+                                                onClick={() => window.scrollTo({ top: 0 })}
+                                            >{borderCountry}</Link>
+                                        ))}
                                     </>
                                 }
                             </div>
                         </div>
                     </div>
-                </div>
+                </PageContainer>
             }
         </Container>
     )

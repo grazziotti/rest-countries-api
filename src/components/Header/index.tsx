@@ -2,22 +2,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon } from '@fortawesome/free-solid-svg-icons'
 
 import { Container } from './styles'
+import { PageContainer } from '../mainComponents';
 
 type Props = {
     onToggleTheme: () => void;
-    theme: string;
 }
 
-export const Header = ({ onToggleTheme, theme }: Props) => {
+export const Header = ({ onToggleTheme }: Props) => {
     return (
         <Container>
-            <div className="container">
+            <PageContainer>
                 <h1 className="title">Where in the world?</h1>
                 <button className="toggle-theme-btn" onClick={() => onToggleTheme()}>
                     <FontAwesomeIcon icon={faMoon} />
                     Dark Mode
                 </button>
-            </div>
+            </PageContainer>
         </Container>
     )
 }

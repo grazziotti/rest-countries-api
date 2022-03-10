@@ -22,7 +22,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme === 'light' ? light : dark}>
       <GlobalStyles />
-      <Header theme={theme} onToggleTheme={handleToggleTheme} />
+      <Header onToggleTheme={handleToggleTheme} />
       <Routes />
     </ThemeProvider>
   )

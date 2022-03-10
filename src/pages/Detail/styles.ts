@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
 export const Container = styled.main`
-    margin-top: 8rem;
+    margin: 8rem 0;
     
-    a {
+    a, .back-btn {
         border-radius: .4rem;
         box-shadow: ${props => props.theme.title === 'light' 
             ? '0px 0px 5px #ccc'
@@ -28,15 +28,19 @@ export const Container = styled.main`
         color: ${props => props.theme.colors.textPrimary};
         
         .country-detail--flag {
-            max-width: 56rem;
             max-height: 40rem;
+            flex: 1;
+
+            img {
+                height: 100%;
+            }
         }
         
         .country-detail--info {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            width: 50%;
+            flex: 1;
             margin-left: 12rem;
             
             .country-detail--name {
@@ -79,6 +83,56 @@ export const Container = styled.main`
                     padding: .8rem;
                     font-size: 1.4rem;
                     text-align: center;
+                }
+                
+            }
+        }
+        
+    }
+
+    @media (max-width: 1025px) {
+        .country-detail {
+            .country-detail--flag {                
+                img {
+                    height: auto;
+                }
+            }
+            
+            .country-detail--info {
+                .country-detail--borders {
+                    margin-top: 4rem;
+                }
+                
+                .country-detail--list {
+                    flex-direction: column;
+                }
+            }   
+        }
+    }
+
+    @media (max-width: 980px) {
+        margin-top: 4rem;
+        
+        .country-detail {
+            flex-direction: column;
+
+            .country-detail--flag {
+                text-align: center;
+
+                img {
+                    max-width: 60rem;
+                    max-height: inherit;
+                }
+            }
+
+            .country-detail--info {
+                margin-left: 0;
+                margin-top: 4rem;
+
+                .country-detail--list {
+                    ul:nth-child(2) {
+                        margin-top: 4rem;
+                    }
                 }
             }
         }

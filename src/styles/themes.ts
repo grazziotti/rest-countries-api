@@ -18,6 +18,6 @@ export const dark = {
         element: '#2b3945',
         background: '#202c37',
         textPrimary: '#ffffff',
-        textSecondary: '#858585'
+        textSecondary: '#ffffff'
     }
 }

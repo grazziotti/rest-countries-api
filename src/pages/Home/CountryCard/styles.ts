@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    max-height: 35.1rem;
+    height: 35rem;
     overflow: hidden;
     border-radius: .4rem;
     background-color: ${props => props.theme.colors.element};
@@ -18,6 +18,10 @@ export const Container = styled.div`
         .country-flag {
             height: 50%;
             overflow: hidden;
+
+            img {
+                height: 100%;
+            }
         }
 
         .country-info {
@@ -46,5 +50,9 @@ export const Container = styled.div`
             }
 
         }
+    }
+
+    @media (max-width: 570px) {
+        width: 26rem;
     }
 `

@@ -8,6 +8,7 @@ export const Container = styled.div<Props>`
     position: relative;
     max-width: 20rem;
     width: 100%;
+    margin-left: 2.4rem;
     font-size: 1.4rem;
     font-weight: 600;
     z-index: 1;
@@ -56,5 +57,11 @@ export const Container = styled.div<Props>`
                 background-color: ${props => props.theme.colors.background};
             }
         }
+    }
+
+    @media (max-width: 570px) {
+        max-width: 50%;
+        margin-top: 4rem;
+        margin-left: 0;
     }
 `

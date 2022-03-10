@@ -23,7 +23,7 @@ export const SearchBar = () => {
 
     return (
         <Container>
-            <form>
+            <form onSubmit={(e) => e.preventDefault()}>
                 <FontAwesomeIcon icon={faMagnifyingGlass} />
                 <input 
                     type="text" 
