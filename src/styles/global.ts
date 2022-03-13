@@ -20,6 +20,7 @@ export const GlobalStyles = createGlobalStyle<Props>`
 
     html {
         font-size: 62.5%;
+        overflow-y: scroll;
     }
 
     body {
@@ -50,12 +51,5 @@ export const GlobalStyles = createGlobalStyle<Props>`
         border: 0;
         outline: 0;
         background-color: transparent;
-    }
-
-    .container {
-        max-width: 130rem;
-        width: 100%;
-        margin: auto;
-        padding: 0 3.2rem;
     }
 `

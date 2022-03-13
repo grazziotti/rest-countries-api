@@ -31,14 +31,14 @@ export const Detail = () => {
                     </Link>
                     <div className="country-detail">
                         <div className="country-detail--flag">
-                            <img src={country.flag} alt={`${country.name} flag`} />    
+                            <img src={`https://flagcdn.com/${country.alpha2Code.toLowerCase()}.svg`} alt={`${country.name} flag`} />    
                         </div>
                         <div className="country-detail--info">
                             <h2 className="country-detail--name">{country.name}</h2>
                             <div className="country-detail--list">
                                 <ul>
                                     <li>Native Name: <span>{country.nativeName}</span></li>
-                                    <li>Population: <span>{country.population}</span></li>
+                                    <li>Population: <span>{country.population.toLocaleString().replace('.', ',')}</span></li>
                                     <li>Region: <span>{country.region}</span></li>
                                     <li>Sub Region: <span>{country.subregion}</span></li>
                                     <li>Capital: <span>{country.capital}</span></li>

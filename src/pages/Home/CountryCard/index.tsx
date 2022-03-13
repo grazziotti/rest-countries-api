@@ -20,7 +20,7 @@ export const CountryCard = ({ flag, name, population, region, capital, alphaCode
                 <div className="country-info">
                     <h4>{name}</h4>
                     <ul>
-                        <li>Population: <span>{population}</span></li>
+                        <li>Population: <span>{population.toLocaleString().replace('.', ',')}</span></li>
                         <li>Region: <span>{region}</span></li>
                         <li>Capital: <span>{capital}</span></li>
                     </ul>

@@ -10,7 +10,7 @@ export type CountriesType = {
 }
 
 export const countriesInitialState: CountriesType = {
-    data: await api.getAll(),
+    data: [],
     region: 'All',
     searchText: '',
 }
@@ -27,6 +27,9 @@ export const filteredCountries = (state: CountriesType) => {
 
 export const countriesReducer = (state: CountriesType, action: ReducerActionType) => {
     switch(action.type) {
+        case 'SET_COUNTRIES':
+            return {...state, data: action.payload.data}
+        break   
         case 'SET_REGION':
             return {...state, region: action.payload.region.trim()}
         break
