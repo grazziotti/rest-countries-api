@@ -11,7 +11,7 @@ export const CountriesArea = () => {
     const [animate, setAnimate] = useState(false)
 
     useEffect(() => {
-        loading ? setTimeout(() => setAnimate(false), 10) : setTimeout(() => setAnimate(true), 10)
+        loading ? setTimeout(() => setAnimate(false), 1) : setTimeout(() => setAnimate(true), 1)
     }, [loading])
 
     const countryList = filteredCountries(state.countries)
@@ -21,11 +21,21 @@ export const CountriesArea = () => {
     }, [countryList])
 
     return (
-        <Container animate={animate}> 
-            {!loading && 
+        <Container animate={animate}>
+            {loading &&
+                <div className="loading-content">
+                    <div className="lds-ellipsis">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            }
+            {!loading &&
                 <div className="content">
-                    {countryList.map( (country, index) => (
-                        <CountryCard 
+                    {countryList.map((country, index) => (
+                        <CountryCard
                             key={index}
                             flag={`https://flagcdn.com/${country.alpha2Code.toLowerCase()}.svg`}
                             name={country.name}
@@ -37,6 +47,6 @@ export const CountriesArea = () => {
                     ))}
                 </div>
             }
-        </Container>  
+        </Container>
     )
 }
