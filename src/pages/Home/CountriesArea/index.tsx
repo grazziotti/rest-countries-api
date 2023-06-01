@@ -1,52 +1,87 @@
-import { useContext, useEffect, useState } from 'react'
-import { Context } from '../../../contexts/Context'
-import { filteredCountries } from '../../../redurcers/countriesReducer'
-import { CountryCard } from '../CountryCard'
+import { useContext, useEffect, useState } from "react";
+import { Context } from "../../../contexts/Context";
+import { filteredCountries } from "../../../redurcers/countriesReducer";
+import { CountryCard } from "../CountryCard";
 
-import { Container } from './styles'
+import { Container } from "./styles";
+import { CountryType } from "../../../types/CountryType";
+import { api } from "../../../services/api";
+import { Error } from "../../../components/Error";
 
 export const CountriesArea = () => {
-    const { state } = useContext(Context)
-    const [loading, setLoading] = useState(false)
-    const [animate, setAnimate] = useState(false)
+  const { state, dispatch } = useContext(Context);
+  const [loading, setLoading] = useState(false);
+  const [fetchError, setFetchError] = useState<boolean>();
+  const [animate, setAnimate] = useState(false);
+  const [filteredCountryList, setFilteredCountryList] =
+    useState<CountryType[]>();
 
-    useEffect(() => {
-        loading ? setTimeout(() => setAnimate(false), 1) : setTimeout(() => setAnimate(true), 1)
-    }, [loading])
+  const fetchCountries = async () => {
+    setLoading(true);
+    try {
+      const countries = await api.getAll();
 
-    const countryList = filteredCountries(state.countries)
+      dispatch({
+        type: "SET_COUNTRIES",
+        payload: { data: countries }
+      });
 
-    useEffect(() => {
-        setLoading(countryList.length <= 0)
-    }, [countryList])
+      setFetchError(false);
+    } catch (err) {
+      setFetchError(true);
+      console.log("Error: ", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    return (
-        <Container animate={animate}>
-            {loading &&
-                <div className="loading-content">
-                    <div className="lds-ellipsis">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                    </div>
-                </div>
-            }
-            {!loading &&
-                <div className="content">
-                    {countryList.map((country, index) => (
-                        <CountryCard
-                            key={index}
-                            flag={`https://flagcdn.com/${country.alpha2Code.toLowerCase()}.svg`}
-                            name={country.name}
-                            population={country.population}
-                            region={country.region}
-                            capital={country.capital}
-                            alphaCode={country.alpha3Code}
-                        />
-                    ))}
-                </div>
-            }
-        </Container>
-    )
-}
+  useEffect(() => {
+    if (state.countries.data.length > 0) {
+      setFilteredCountryList(filteredCountries(state.countries));
+    } else {
+      fetchCountries();
+    }
+  }, [state]);
+
+  useEffect(() => {
+    loading
+      ? setTimeout(() => setAnimate(false), 1)
+      : setTimeout(() => setAnimate(true), 1);
+  }, [loading]);
+
+  return (
+    <Container animate={animate}>
+      {loading && (
+        <div className="loading-content">
+          <div className="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      )}
+      {!loading && (
+        <>
+          {fetchError ? (
+            <Error msg="Error loading country data. Please try again later." />
+          ) : (
+            <div className="content">
+              {filteredCountryList?.map((country, index) => (
+                <CountryCard
+                  key={index}
+                  flag={`https://flagcdn.com/${country.alpha2Code.toLowerCase()}.svg`}
+                  name={country.name}
+                  population={country.population}
+                  region={country.region}
+                  capital={country.capital}
+                  alphaCode={country.alpha3Code}
+                />
+              ))}
+            </div>
+          )}
+        </>
+      )}
+    </Container>
+  );
+};
