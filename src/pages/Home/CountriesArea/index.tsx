@@ -7,6 +7,7 @@ import { Container } from "./styles";
 import { CountryType } from "../../../types/CountryType";
 import { api } from "../../../services/api";
 import { Error } from "../../../components/Error";
+import { Loader } from "../../../components/Loader";
 
 export const CountriesArea = () => {
   const { state, dispatch } = useContext(Context);
@@ -51,16 +52,7 @@ export const CountriesArea = () => {
 
   return (
     <Container animate={animate}>
-      {loading && (
-        <div className="loading-content">
-          <div className="lds-ellipsis">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>
-      )}
+      {loading && <Loader />}
       {!loading && (
         <>
           {fetchError ? (
