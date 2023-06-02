@@ -1,84 +1,175 @@
-import { useContext } from 'react'
-import { Context } from '../../contexts/Context'
-import { Link, useParams } from 'react-router-dom'
+import { useContext, useEffect, useState } from "react";
+import { Context } from "../../contexts/Context";
+import { Link, useParams } from "react-router-dom";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
-import { Container } from './styles'
-import { PageContainer } from '../../components/mainComponents'
+import { Container } from "./styles";
+import { PageContainer } from "../../components/mainComponents";
+import { CountryType } from "../../types/CountryType";
+import { api } from "../../services/api";
+import { Loader } from "../../components/Loader";
+import { Error } from "../../components/Error";
 
 export const Detail = () => {
-    const { state } = useContext(Context)
-    const params = useParams()    
-    const country = state.countries.data.find( country => country.alpha3Code.toLowerCase() === params.country?.toLowerCase())
+  const { state, dispatch } = useContext(Context);
+  const params = useParams();
 
-    let borderCountries = country?.borders === undefined
-        ?   ['']
-        :   country?.borders
-            .map( borderCountry => state.countries.data.find( country => country.alpha3Code === borderCountry))
-            .map( borderCountry => { if (borderCountry !== undefined) return borderCountry.name })
+  const [country, setCountry] = useState<CountryType>();
+  const [borderingCountries, setBorderingCountries] = useState<string[]>();
 
-    window.scrollTo({ top: 0 })
+  const [fetchError, setFetchError] = useState(false);
+  const [loading, setLoading] = useState<boolean>();
 
-    return (
-        <Container>
-            {country !== undefined &&
-                <PageContainer>
-                    <Link className="back-btn" to="/" >
-                        <FontAwesomeIcon icon={faArrowLeft} />
-                        Back
-                    </Link>
-                    <div className="country-detail">
-                        <div className="country-detail--flag">
-                            <img src={`https://flagcdn.com/${country.alpha2Code.toLowerCase()}.svg`} alt={`${country.name} flag`} />    
-                        </div>
-                        <div className="country-detail--info">
-                            <h2 className="country-detail--name">{country.name}</h2>
-                            <div className="country-detail--list">
-                                <ul>
-                                    <li>Native Name: <span>{country.nativeName}</span></li>
-                                    <li>Population: <span>{country.population.toLocaleString().replace('.', ',')}</span></li>
-                                    <li>Region: <span>{country.region}</span></li>
-                                    <li>Sub Region: <span>{country.subregion}</span></li>
-                                    <li>Capital: <span>{country.capital}</span></li>
-                                </ul>
-                                <ul>
-                                    <li>Top Level Domain: 
-                                        <span>{' '}
-                                            {country.topLevelDomain && country.topLevelDomain.map( top => top)}
-                                        </span>
-                                    </li>    
-                                    <li>Currencies:{' '} 
-                                        <span>
-                                            {country.currencies && country.currencies.map( currencie => currencie.name).join(', ')}
-                                        </span>
-                                    </li>    
-                                    <li>Languages:{' '} 
-                                        <span>
-                                            {country.languages.map( lang => lang.name).join(', ')}
-                                        </span>
-                                    </li>    
-                                </ul>    
-                            </div>
-                            <div className="country-detail--borders">
-                                {country.borders !== undefined &&
-                                    <>
-                                    <p>Border Countries: </p>
-                                        {borderCountries.map( (borderCountry, index) => (
-                                            <Link 
-                                                key={index} 
-                                                to={`/detail/${country.borders[index]}`}
-                                                onClick={() => window.scrollTo({ top: 0 })}
-                                            >{borderCountry}</Link>
-                                        ))}
-                                    </>
-                                }
-                            </div>
-                        </div>
+  const fetchCountries = async () => {
+    setLoading(true);
+    try {
+      const countries = await api.getAll();
+
+      dispatch({
+        type: "SET_COUNTRIES",
+        payload: { data: countries }
+      });
+
+      setFetchError(false);
+    } catch (err) {
+      setFetchError(true);
+      console.log("Error: ", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (state.countries.data.length > 0) {
+      setCountry(
+        state.countries.data.find(
+          (country) =>
+            country?.alpha3Code.toLowerCase() === params.country?.toLowerCase()
+        )
+      );
+    } else {
+      fetchCountries();
+    }
+
+    window.scrollTo({ top: 0 });
+  }, [params]);
+
+  useEffect(() => {
+    if (country) {
+      const borderingCountryCodes = country.borders;
+
+      if (borderingCountryCodes) {
+        const borderingCountries = state.countries.data.filter((country) =>
+          borderingCountryCodes.includes(country.alpha3Code)
+        );
+        const borderingCountryNames = borderingCountries.map(
+          (country) => country.name
+        );
+
+        setBorderingCountries(borderingCountryNames);
+      }
+    }
+  }, [country]);
+
+  return (
+    <Container>
+      <PageContainer>
+        <Link className="back-btn" to="/">
+          <FontAwesomeIcon icon={faArrowLeft} />
+          Back
+        </Link>
+        <div className="country-detail">
+          {loading ? (
+            <Loader />
+          ) : (
+            <>
+              {fetchError ? (
+                <Error msg="Error loading country data. Please try again later." />
+              ) : (
+                <>
+                  <div className="country-detail--flag">
+                    <img
+                      src={`https://flagcdn.com/${country?.alpha2Code.toLowerCase()}.svg`}
+                      alt={`${country?.name} flag`}
+                    />
+                  </div>
+                  <div className="country-detail--info">
+                    <h2 className="country-detail--name">{country?.name}</h2>
+                    <div className="country-detail--list">
+                      <ul>
+                        <li>
+                          Native Name: <span>{country?.nativeName}</span>
+                        </li>
+                        <li>
+                          Population:{" "}
+                          <span>
+                            {country?.population
+                              .toLocaleString()
+                              .replace(".", ",")}
+                          </span>
+                        </li>
+                        <li>
+                          Region: <span>{country?.region}</span>
+                        </li>
+                        <li>
+                          Sub Region: <span>{country?.subregion}</span>
+                        </li>
+                        <li>
+                          Capital: <span>{country?.capital}</span>
+                        </li>
+                      </ul>
+                      <ul>
+                        <li>
+                          Top Level Domain:
+                          <span>
+                            {" "}
+                            {country?.topLevelDomain &&
+                              country?.topLevelDomain.map((top) => top)}
+                          </span>
+                        </li>
+                        <li>
+                          Currencies:{" "}
+                          <span>
+                            {country?.currencies &&
+                              country?.currencies
+                                .map((currencie) => currencie.name)
+                                .join(", ")}
+                          </span>
+                        </li>
+                        <li>
+                          Languages:{" "}
+                          <span>
+                            {country?.languages
+                              .map((lang) => lang.name)
+                              .join(", ")}
+                          </span>
+                        </li>
+                      </ul>
                     </div>
-                </PageContainer>
-            }
-        </Container>
-    )
-}
+                    {country?.borders !== undefined && (
+                      <div className="country-detail--borders">
+                        <p>Border Countries: </p>
+                        {borderingCountries?.map((borderCountry, index) => (
+                          <Link
+                            key={index}
+                            to={`/detail/${country?.borders[index]}`}
+                            onClick={() => window.scrollTo({ top: 0 })}
+                          >
+                            {borderCountry}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
+            </>
+          )}
+        </div>
+      </PageContainer>
+      )
+    </Container>
+  );
+};
