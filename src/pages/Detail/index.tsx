@@ -19,7 +19,8 @@ export const Detail = () => {
   const [country, setCountry] = useState<CountryType>();
   const [borderingCountries, setBorderingCountries] = useState<string[]>();
 
-  const [fetchError, setFetchError] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState<boolean>();
 
   const fetchCountries = async () => {
@@ -32,9 +33,10 @@ export const Detail = () => {
         payload: { data: countries }
       });
 
-      setFetchError(false);
+      setError(false);
     } catch (err) {
-      setFetchError(true);
+      setError(true);
+      setErrorMsg("Error loading country data. Please try again later.");
       console.log("Error: ", err);
     } finally {
       setLoading(false);
@@ -43,12 +45,18 @@ export const Detail = () => {
 
   useEffect(() => {
     if (state.countries.data.length > 0) {
-      setCountry(
-        state.countries.data.find(
-          (country) =>
-            country?.alpha3Code.toLowerCase() === params.country?.toLowerCase()
-        )
+      const country = state.countries.data.find(
+        (country) =>
+          country?.alpha3Code.toLowerCase() === params.country?.toLowerCase()
       );
+
+      if (!country) {
+        setError(true);
+        setErrorMsg("Country not found.");
+        return;
+      }
+
+      setCountry(country);
     } else {
       fetchCountries();
     }
@@ -85,8 +93,8 @@ export const Detail = () => {
             <Loader />
           ) : (
             <>
-              {fetchError ? (
-                <Error msg="Error loading country data. Please try again later." />
+              {error ? (
+                <Error msg={errorMsg} />
               ) : (
                 <>
                   <div className="country-detail--flag">
