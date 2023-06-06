@@ -12,7 +12,8 @@ import { Loader } from "../../../components/Loader";
 export const CountriesArea = () => {
   const { state, dispatch } = useContext(Context);
   const [loading, setLoading] = useState(false);
-  const [fetchError, setFetchError] = useState<boolean>();
+  const [error, setError] = useState<boolean>();
+  const [errorMsg, setErrorMsg] = useState("");
   const [animate, setAnimate] = useState(false);
   const [filteredCountryList, setFilteredCountryList] =
     useState<CountryType[]>();
@@ -27,9 +28,10 @@ export const CountriesArea = () => {
         payload: { data: countries }
       });
 
-      setFetchError(false);
+      setError(false);
     } catch (err) {
-      setFetchError(true);
+      setError(true);
+      setErrorMsg("Error loading country data. Please try again later.");
       console.log("Error: ", err);
     } finally {
       setLoading(false);
@@ -38,7 +40,17 @@ export const CountriesArea = () => {
 
   useEffect(() => {
     if (state.countries.data.length > 0) {
-      setFilteredCountryList(filteredCountries(state.countries));
+      const countries = filteredCountries(state.countries);
+
+      if (countries.length <= 0) {
+        setError(true);
+        setErrorMsg("Country not found. Please enter a valid country name.");
+        return;
+      } else {
+        if (error) setError(false);
+      }
+
+      setFilteredCountryList(countries);
     } else {
       fetchCountries();
     }
@@ -55,8 +67,8 @@ export const CountriesArea = () => {
       {loading && <Loader />}
       {!loading && (
         <>
-          {fetchError ? (
-            <Error msg="Error loading country data. Please try again later." />
+          {error ? (
+            <Error msg={errorMsg} />
           ) : (
             <div className="content">
               {filteredCountryList?.map((country, index) => (
