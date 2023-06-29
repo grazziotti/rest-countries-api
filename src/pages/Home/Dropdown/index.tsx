@@ -34,7 +34,7 @@ export const Dropdown = () => {
   };
 
   return (
-    <Container isOpen={isOpen} data-testid="region-filterd-dropdown">
+    <Container isOpen={isOpen} data-testid="region-filter-dropdown">
       <button onClick={toggleDropdown}>
         <span>{selectedRegion}</span>
         <FontAwesomeIcon icon={faAngleDown} />

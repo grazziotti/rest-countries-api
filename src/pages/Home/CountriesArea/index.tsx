@@ -63,7 +63,7 @@ export const CountriesArea = () => {
   }, [loading]);
 
   return (
-    <Container animate={animate}>
+    <Container animate={animate} data-testid="countries-area">
       {loading && <Loader />}
       {!loading && (
         <>

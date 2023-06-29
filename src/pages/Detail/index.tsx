@@ -84,7 +84,7 @@ export const Detail = () => {
   return (
     <Container>
       <PageContainer>
-        <Link className="back-btn" to="/">
+        <Link className="back-btn" data-testid="back-btn" to="/">
           <FontAwesomeIcon icon={faArrowLeft} />
           Back
         </Link>
