@@ -188,7 +188,7 @@ describe("App", () => {
       expect(getByText("Japan")).toBeInTheDocument();
     });
 
-    const country = countriesArea.querySelector("a");
+    const country = countriesArea.querySelector("a") as HTMLAnchorElement;
     const dropdownItens = country?.querySelector("h4");
     expect(dropdownItens?.innerHTML).toBe("Brazil");
     expect(country).toBeInTheDocument();
