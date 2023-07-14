@@ -1,5 +1,7 @@
 # 🌍 Countries App
 
+[![NPM](https://img.shields.io/npm/l/react)](https://github.com/grazziotti/rest-countries-api/blob/main/LICENSE)
+
 ![](./public/images/app-screenshot.png)
 
 ## 📄 Descrição
