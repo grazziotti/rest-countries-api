@@ -15,6 +15,8 @@ Link do projeto: https://rest-countries-api-grazziotti.vercel.app
 - [Styled Components](https://styled-components.com/)
 - [React Router](https://reactrouter.com/)
 - [Axios](https://axios-http.com/)
+- [Rest Countries API](https://restcountries.com/)
+- [Context API](https://pt-br.legacy.reactjs.org/docs/context.html)
 
 ## ✨ Funcionalidades
 
