@@ -6,9 +6,14 @@
 
 ## 📄 Descrição
 
+Este projeto é uma solução para o desafio [REST Countries API](https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca) do site [Frontend Mentor](https://www.frontendmentor.io/). Os desafios do Frontend Mentor ajudam a melhorar suas habilidades de codificação ao construir projetos realistas.
+
 O Countries App é um aplicativo web que fornece informações sobre diferentes países ao redor do mundo. Ele utiliza a API Rest Countries para buscar dados e exibir vários detalhes sobre cada país, incluindo seu nome, capital, população, idiomas, moedas etc...
 
-Link do projeto: https://rest-countries-api-grazziotti.vercel.app
+## 🔗 Links
+
+- Solução: [aqui](https://www.frontendmentor.io/solutions/rest-countries-api-react-typescript-flexbox-and-grid-XyGdM-RX26)
+- Link do projeto: [aqui](https://rest-countries-api-grazziotti.vercel.app/)
 
 ## 🛠 Tecnologias Utilizadas
 
@@ -57,4 +62,5 @@ $ npm run dev
 
 <img style="border-radius: 50px" alt="Daniel Grazziotti" title="Daniel Grazziotti" src="https://avatars.githubusercontent.com/grazziotti" height="100" width="100" />
 
-[Daniel Grazziotti](https://github.com/grazziotti)
+- Github - [@grazziotti](https://github.com/grazziotti)
+- Frontend Mentor - [@grazziotti](https://www.frontendmentor.io/profile/grazziotti)
