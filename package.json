@@ -8,6 +8,9 @@
     "preview": "vite preview",
     "test": "vitest"
   },
+  "engines": {
+    "node": "18.x"
+  },
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.0.0",
     "@fortawesome/react-fontawesome": "^0.1.17",
