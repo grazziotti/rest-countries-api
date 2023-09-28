@@ -17,7 +17,8 @@ export const Detail = () => {
   const params = useParams();
 
   const [country, setCountry] = useState<CountryType>();
-  const [borderingCountries, setBorderingCountries] = useState<string[]>();
+  const [borderingCountries, setBorderingCountries] =
+    useState<{ name: string; alphaCode: string }[]>();
 
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
@@ -76,7 +77,13 @@ export const Detail = () => {
           (country) => country.name
         );
 
-        setBorderingCountries(borderingCountryNames);
+        console.log(country.borders, borderingCountryNames);
+
+        setBorderingCountries(
+          borderingCountries.map((country, index) => {
+            return { name: country.name, alphaCode: country.alpha3Code };
+          })
+        );
       }
     }
   }, [country]);
@@ -162,10 +169,10 @@ export const Detail = () => {
                         {borderingCountries?.map((borderCountry, index) => (
                           <Link
                             key={index}
-                            to={`/detail/${country?.borders[index]}`}
+                            to={`/detail/${borderCountry.alphaCode}`}
                             onClick={() => window.scrollTo({ top: 0 })}
                           >
-                            {borderCountry}
+                            {borderCountry.name}
                           </Link>
                         ))}
                       </div>
