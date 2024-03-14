@@ -38,7 +38,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme === "light" ? light : dark}>
       <GlobalStyles />
-      <Header onToggleTheme={handleToggleTheme} />
+      <Header onToggleTheme={handleToggleTheme} currentTheme={theme} />
       <Routes />
     </ThemeProvider>
   );

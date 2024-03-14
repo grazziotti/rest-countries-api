@@ -1,14 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoon } from "@fortawesome/free-solid-svg-icons";
+import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 
 import { Container } from "./styles";
 import { PageContainer } from "../mainComponents";
 
 type Props = {
   onToggleTheme: () => void;
+  currentTheme: string;
 };
 
-export const Header = ({ onToggleTheme }: Props) => {
+export const Header = ({ onToggleTheme, currentTheme }: Props) => {
   return (
     <Container data-testid="header">
       <PageContainer>
@@ -18,7 +19,7 @@ export const Header = ({ onToggleTheme }: Props) => {
           data-testid="toggle-theme-btn"
           onClick={() => onToggleTheme()}
         >
-          <FontAwesomeIcon icon={faMoon} />
+          <FontAwesomeIcon icon={currentTheme === "light" ? faSun : faMoon} />
           Dark Mode
         </button>
       </PageContainer>
